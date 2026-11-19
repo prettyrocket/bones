@@ -34,6 +34,19 @@ describe('RoutePage', () => {
     expect(within(trip1).getByRole('checkbox', { name: 'Armoured Zombie' })).toBeChecked();
   });
 
+  it('links each bone to its monster on the OSRS Wiki', () => {
+    renderRoute('/');
+    expect(screen.getByRole('link', { name: 'Cow' })).toHaveAttribute(
+      'href',
+      'https://oldschool.runescape.wiki/w/Cow',
+    );
+    // A name that lands on a disambiguation page links to the right monster instead.
+    expect(screen.getByRole('link', { name: 'Armoured Zombie' })).toHaveAttribute(
+      'href',
+      `https://oldschool.runescape.wiki/w/${encodeURIComponent("Armoured_zombie_(Zemouregal's_Base)")}`,
+    );
+  });
+
   it('opens the shopping list as its own view, sharing ticks with the bank stops', async () => {
     const { user } = renderRoute('/?view=shop');
     expect(screen.getByRole('heading', { name: 'Shopping list' })).toBeInTheDocument();

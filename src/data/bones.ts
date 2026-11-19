@@ -6,12 +6,19 @@ export interface Bone {
   location: string;
   slayer?: number;
   quest?: string;
+  /** The OSRS Wiki page, when the bone's name alone lands somewhere else (like a disambiguation page). */
+  wiki?: string;
 }
 
 export const BONES: Bone[] = [
   { name: 'Angry Giant Rat', location: "Tolna's rift", quest: "A Soul's Bane" },
   { name: 'Ankou', location: 'Stronghold of Security' },
-  { name: 'Armoured Zombie', location: "Zemouregal's base", quest: 'Defender of Varrock (start)' },
+  {
+    name: 'Armoured Zombie',
+    location: "Zemouregal's base",
+    quest: 'Defender of Varrock (start)',
+    wiki: "Armoured zombie (Zemouregal's Base)",
+  },
   { name: 'Aviansie', location: 'God Wars Dungeon', quest: 'Troll Stronghold (partial)' },
   { name: 'Blue Dragon', location: 'Taverley Dungeon' },
   { name: 'Boar', location: 'West of Kourend Castle' },
@@ -26,7 +33,7 @@ export const BONES: Bone[] = [
   { name: 'Druid', location: 'Taverley' },
   { name: 'Fox', location: 'East of Hosidius Kitchen' },
   { name: 'Frogeel', location: 'Tower of Life', quest: 'Tower of Life' },
-  { name: 'Gnome Child', location: 'Grand Tree' },
+  { name: 'Gnome Child', location: 'Grand Tree (second floor)' },
   { name: 'Goat', location: 'Kharidian Desert' },
   { name: 'Hill Giant', location: 'Edgeville Dungeon' },
   { name: 'Infernal Mage', location: 'Slayer Tower', slayer: 45, quest: 'Priest in Peril' },
@@ -40,6 +47,12 @@ export const BONES: Bone[] = [
   { name: 'Ugthanki', location: 'Kharidian Desert' },
   { name: 'Wallasalki', location: 'Waterbirth Island Dungeon' },
 ];
+
+/** The monster's OSRS Wiki page. Every bone's name works as a page title (some via redirects). */
+export function wikiUrl(bone: string): string {
+  const page = BONES.find((entry) => entry.name === bone)?.wiki ?? bone;
+  return `https://oldschool.runescape.wiki/w/${encodeURIComponent(page.replace(/ /g, '_'))}`;
+}
 
 export interface Stop {
   /** A bone's name, or null for a bank stop. */
@@ -150,11 +163,13 @@ export const ROUTE: Trip[] = [
       bone('Cyclops', "Warriors' Guild", 'Upper floor of the guild', [
         '130 combined Att+Str',
         'Food for tokens',
+        '100 tokens to enter, 10 drain per minute; earn 150+ in the ground-floor Animation room (rune armour gives 40 per kill)',
+        'Melee only (immune to Ranged and Magic)',
       ]),
       bone(
         'Aviansie',
         "God Wars Dungeon (Armadyl's Eyrie)",
-        "Climb past Death Plateau to Dad, then north to the dungeon's hole",
+        "Climb past Death Plateau to Dad, then north to the dungeon's hole (or Ghommal's hilt 2+ teleports to the entrance boulder: 5 a day at tier 2, unlimited from tier 3)",
         [
           'Troll Stronghold (partial)',
           'Climbing boots',
@@ -174,8 +189,8 @@ export const ROUTE: Trip[] = [
     stops: [
       bone(
         'Gnome Child',
-        'Grand Tree',
-        'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree',
+        'Grand Tree (second floor)',
+        'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree (or Royal seed pod straight to the Grand Tree, from Monkey Madness II)',
       ),
       bone('Tortoise', 'Gnome Stronghold pen (NW of Grand Tree)', 'Walk'),
       bone(
@@ -207,7 +222,12 @@ export const ROUTE: Trip[] = [
   {
     name: 'Morytania',
     stops: [
-      bone('Crawling Hand', 'Slayer Tower', 'Slayer ring to Slayer Tower', ['5 Slayer']),
+      bone(
+        'Crawling Hand',
+        'Slayer Tower',
+        'Fairy ring CKS, walk north-west past Canifis to the tower (or Slayer ring to Slayer Tower)',
+        ['5 Slayer', 'Dramen or Lunar staff'],
+      ),
       bone('Infernal Mage', 'Slayer Tower', 'Same tower', ['45 Slayer']),
       bone(
         'Sorebones',

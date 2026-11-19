@@ -5,10 +5,11 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import type { Stop, Trip } from '@/data/bones';
+import { type Stop, type Trip, wikiUrl } from '@/data/bones';
 import { itemLabel, shoppingItem } from '@/data/progress';
 import { cardSx, colors, monoFont } from '@/theme';
 
@@ -115,7 +116,20 @@ function StopRow({
                 : { color: stop.bone ? colors.bone : colors.boneSoft }),
             }}
           >
-            {title}
+            {stop.bone ? (
+              <Link
+                href={wikiUrl(stop.bone)}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="inherit"
+                underline="hover"
+                title={`${stop.bone} on the OSRS Wiki`}
+              >
+                {title}
+              </Link>
+            ) : (
+              title
+            )}
           </Typography>
           <Typography component="span" sx={{ color: colors.muted }}>
             {stop.location}
