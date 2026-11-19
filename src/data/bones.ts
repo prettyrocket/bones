@@ -150,11 +150,13 @@ export const ROUTE: Trip[] = [
       bone('Cyclops', "Warriors' Guild", 'Upper floor of the guild', [
         '130 combined Att+Str',
         'Food for tokens',
+        '100 tokens to enter, 10 drain per minute; earn 150+ in the ground-floor Animation room (rune armour gives 40 per kill)',
+        'Melee only (immune to Ranged and Magic)',
       ]),
       bone(
         'Aviansie',
         "God Wars Dungeon (Armadyl's Eyrie)",
-        "Climb past Death Plateau to Dad, then north to the dungeon's hole",
+        "Climb past Death Plateau to Dad, then north to the dungeon's hole (or Ghommal's hilt 2+ teleports to the entrance boulder: 5 a day at tier 2, unlimited from tier 3)",
         [
           'Troll Stronghold (partial)',
           'Climbing boots',
