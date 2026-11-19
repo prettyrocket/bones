@@ -177,7 +177,7 @@ export const ROUTE: Trip[] = [
       bone(
         'Gnome Child',
         'Grand Tree',
-        'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree',
+        'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree (or Royal seed pod straight to the Grand Tree, from Monkey Madness II)',
       ),
       bone('Tortoise', 'Gnome Stronghold pen (NW of Grand Tree)', 'Walk'),
       bone(
