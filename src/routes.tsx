@@ -9,8 +9,8 @@ import { RoutePage } from '@/pages/RoutePage';
 
 /** Nav links shown in the app bar, in order. */
 export const navItems = [
-  { to: '/', label: 'Route' },
-  { to: '/checklist', label: 'Checklist' },
+  { to: '/', label: 'Guided' },
+  { to: '/checklist', label: 'Unguided' },
   { to: '/about', label: 'About' },
 ];
 
