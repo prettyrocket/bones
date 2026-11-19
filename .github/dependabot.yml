@@ -10,6 +10,12 @@ updates:
     cooldown:
       default-days: 3
     open-pull-requests-limit: 10
+    ignore:
+      # TypeScript 7 (the native rewrite) isn't supported by typescript-eslint
+      # yet (its peer range stops at <6.1), so `npm ci` fails. Remove this once
+      # a typescript-eslint release accepts TypeScript 7.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       # All security fixes in one PR instead of one per advisory.
       security:
