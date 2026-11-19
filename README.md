@@ -34,7 +34,7 @@ src/
 ├─ components/           # shared components (ErrorPage, ColorModeToggle)
 ├─ hooks/                # useLocalStorage, useProgress (saved checklists)
 └─ test/                 # setup + renderWithProviders / renderRoute helpers
-public/                  # served as-is (favicon)
+public/                  # served as-is (item images, incl. the tab icon)
 ```
 
 - **App title:** `VITE_APP_TITLE` in `.env` (browser tab and app bar).
