@@ -26,7 +26,7 @@ export const BONES: Bone[] = [
   { name: 'Druid', location: 'Taverley' },
   { name: 'Fox', location: 'East of Hosidius Kitchen' },
   { name: 'Frogeel', location: 'Tower of Life', quest: 'Tower of Life' },
-  { name: 'Gnome Child', location: 'Grand Tree' },
+  { name: 'Gnome Child', location: 'Grand Tree (second floor)' },
   { name: 'Goat', location: 'Kharidian Desert' },
   { name: 'Hill Giant', location: 'Edgeville Dungeon' },
   { name: 'Infernal Mage', location: 'Slayer Tower', slayer: 45, quest: 'Priest in Peril' },
@@ -176,7 +176,7 @@ export const ROUTE: Trip[] = [
     stops: [
       bone(
         'Gnome Child',
-        'Grand Tree',
+        'Grand Tree (second floor)',
         'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree (or Royal seed pod straight to the Grand Tree, from Monkey Madness II)',
       ),
       bone('Tortoise', 'Gnome Stronghold pen (NW of Grand Tree)', 'Walk'),
