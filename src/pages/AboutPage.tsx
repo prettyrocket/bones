@@ -12,8 +12,8 @@ export function AboutPage() {
         are saved in this browser only.
       </Typography>
       <Typography>
-        Bone locations draw on the OSRS Wiki. The quest came out on 18 November 2026, so details may
-        still change.
+        Bone locations draw on the OSRS Wiki. Item images are © Jagex, via the OSRS Wiki. The quest
+        came out on 18 November 2026, so details may still change.
       </Typography>
     </>
   );
