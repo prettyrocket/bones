@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 
+import { EGG_BONES } from '@/components/SillyBonesack';
 import { BONES } from '@/data/bones';
 import { colors } from '@/theme';
 
@@ -39,6 +40,8 @@ export function RouteHeader({ compact, collected }: { compact: boolean; collecte
               py: 1,
               borderColor: colors.line,
               boxShadow: '0 6px 12px -10px rgba(0, 0, 0, 0.55)',
+              // Keep the bone count clear of the pinned bonesack once it shows up.
+              ...(collected >= EGG_BONES && { pr: { md: 7 } }),
             }
           : { height: 120, mb: '-10px', py: 1.75, borderColor: 'transparent' }),
       }}
