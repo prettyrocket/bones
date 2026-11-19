@@ -18,3 +18,4 @@ export function useCheckedSet(key: string) {
 
 export const useBones = () => useCheckedSet('rbm3.bones');
 export const useShopping = () => useCheckedSet('rbm3.shopping');
+export const usePolished = () => useCheckedSet('rbm3.polished');

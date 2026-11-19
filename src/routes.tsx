@@ -3,16 +3,14 @@ import { type RouteObject, createBrowserRouter } from 'react-router';
 import { ErrorPage, RootErrorPage } from '@/components/ErrorPage';
 import { RootLayout } from '@/layouts/RootLayout';
 import { AboutPage } from '@/pages/AboutPage';
-import { BonesPage } from '@/pages/BonesPage';
+import { ChecklistPage } from '@/pages/ChecklistPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { RoutePage } from '@/pages/RoutePage';
-import { ShoppingPage } from '@/pages/ShoppingPage';
 
 /** Nav links shown in the app bar, in order. */
 export const navItems = [
   { to: '/', label: 'Route' },
-  { to: '/bones', label: 'Bones' },
-  { to: '/shopping', label: 'Shopping' },
+  { to: '/checklist', label: 'Checklist' },
   { to: '/about', label: 'About' },
 ];
 
@@ -28,8 +26,7 @@ export const routes: RouteObject[] = [
         errorElement: <ErrorPage />,
         children: [
           { index: true, element: <RoutePage /> },
-          { path: 'bones', element: <BonesPage /> },
-          { path: 'shopping', element: <ShoppingPage /> },
+          { path: 'checklist', element: <ChecklistPage /> },
           { path: 'about', element: <AboutPage /> },
           { path: '*', element: <NotFoundPage /> },
         ],

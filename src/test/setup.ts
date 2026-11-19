@@ -15,6 +15,9 @@ window.matchMedia ??= (query: string) =>
     dispatchEvent: () => false,
   }) as MediaQueryList;
 
+// jsdom doesn't scroll; the Route page's jump links call scrollTo.
+window.scrollTo = () => {};
+
 // Tests never touch the network: fetch answers 404 unless a test mocks it, e.g.
 //   vi.mocked(fetch).mockResolvedValueOnce(Response.json([...]))
 beforeEach(() => {

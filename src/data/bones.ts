@@ -46,7 +46,10 @@ export interface Stop {
   bone: string | null;
   location: string;
   travel: string;
-  notes?: string;
+  /** Shown as small tags under the stop. */
+  notes: string[];
+  /** Shopping list items (by their `item` name) that you load at this bank. */
+  loads: string[];
 }
 
 export interface Trip {
@@ -54,223 +57,227 @@ export interface Trip {
   stops: Stop[];
 }
 
+const bank = (
+  location: string,
+  travel: string,
+  loads: string[] = [],
+  notes: string[] = [],
+): Stop => ({
+  bone: null,
+  location,
+  travel,
+  loads,
+  notes,
+});
+
+const bone = (name: string, location: string, travel: string, notes: string[] = []): Stop => ({
+  bone: name,
+  location,
+  travel,
+  loads: [],
+  notes,
+});
+
 export const ROUTE: Trip[] = [
   {
     name: 'Silvarea',
     stops: [
-      {
-        bone: null,
-        location: 'Varrock East bank',
-        travel: 'Varrock Teleport',
-        notes: 'Load: grubby key, Digsite pendant, amulet of glory, combat gear, food',
-      },
-      {
-        bone: 'Armoured Zombie',
-        location: "Zemouregal's base",
-        travel: 'Walk east to the Odd Old Man; base is north of Silvarea at the Wilderness border',
-        notes: 'Grubby key',
-      },
-      {
-        bone: 'Angry Giant Rat',
-        location: "Tolna's rift",
-        travel: 'East of Varrock, just north-west of the Digsite',
-      },
+      bank('Varrock East bank', 'Varrock Teleport', [
+        'Amulet of glory (3)',
+        'Grubby key',
+        'Digsite pendant',
+      ]),
+      bone(
+        'Armoured Zombie',
+        "Zemouregal's base",
+        'Walk east to the Odd Old Man; the base is north of Silvarea at the Wilderness border',
+        ['Grubby key'],
+      ),
+      bone('Angry Giant Rat', "Tolna's rift", 'East of Varrock, just north-west of the Digsite'),
     ],
   },
   {
     name: 'Stronghold of Security',
     stops: [
-      {
-        bone: null,
-        location: 'Edgeville bank',
-        travel: 'Amulet of glory to Edgeville (lands by the bank)',
-        notes: 'Drop the grubby key and pendant; top up food',
-      },
-      { bone: 'Minotaur', location: 'Stronghold level 1', travel: 'Walk to Barbarian Village' },
-      { bone: 'Catablepon', location: 'Stronghold level 2', travel: 'Continue down' },
-      { bone: 'Ankou', location: 'Stronghold level 4', travel: 'Continue down' },
+      bank(
+        'Edgeville bank',
+        'Amulet of glory to Edgeville (lands by the bank)',
+        [],
+        ['Drop the grubby key and pendant', 'Top up food'],
+      ),
+      bone('Minotaur', 'Stronghold level 1', 'Walk to Barbarian Village'),
+      bone('Catablepon', 'Stronghold level 2', 'Continue down'),
+      bone('Ankou', 'Stronghold level 4', 'Continue down'),
     ],
   },
   {
     name: 'Lumbridge',
     stops: [
-      { bone: 'Chicken', location: 'Lumbridge farms', travel: 'Lumbridge Home Teleport' },
-      { bone: 'Cow', location: 'Lumbridge farms', travel: 'Walk' },
-      {
-        bone: null,
-        location: "Lumbridge Castle cellar (Culinaromancer's Chest)",
-        travel: 'Walk back to the castle, down to the cellar',
-        notes:
-          'Load for trips 4–5: Falador Teleport, dusty key, anti-dragon shield, games necklace',
-      },
+      bone('Chicken', 'Lumbridge farms', 'Lumbridge Home Teleport'),
+      bone('Cow', 'Lumbridge farms', 'Walk'),
+      bank(
+        "Lumbridge Castle cellar (Culinaromancer's Chest)",
+        'Walk back to the castle, down to the cellar',
+        ['Falador Teleport', 'Games necklace', 'Dusty key', 'Anti-dragon shield'],
+        ['For trips 4–5'],
+      ),
     ],
   },
   {
     name: 'Taverley',
     stops: [
-      {
-        bone: 'Druid',
-        location: 'Taverley',
-        travel:
-          'Falador Teleport, walk west (Falador West bank is on the way if you forgot anything)',
-      },
-      {
-        bone: 'Blue Dragon',
-        location: 'Taverley Dungeon',
-        travel: 'Dungeon entrance south of Taverley',
-        notes: 'Dusty key or 70 Agility shortcut; anti-dragon shield',
-      },
-      { bone: 'Hill Giant', location: 'Taverley Dungeon', travel: 'Same dungeon' },
+      bone(
+        'Druid',
+        'Taverley',
+        'Falador Teleport, walk west (Falador West bank is on the way if you forgot anything)',
+      ),
+      bone('Blue Dragon', 'Taverley Dungeon', 'Dungeon entrance south of Taverley', [
+        'Dusty key or 70 Agility shortcut',
+        'Anti-dragon shield',
+      ]),
+      bone('Hill Giant', 'Taverley Dungeon', 'Same dungeon'),
     ],
   },
   {
     name: 'Burthorpe',
     stops: [
-      {
-        bone: null,
-        location: "Warriors' Guild (ground floor)",
-        travel: 'Games necklace to Burthorpe, walk into the guild',
-        notes:
-          'Swap for GWD: climbing boots, rope, crossbow, mithril grapple, hammer; add slayer ring',
-      },
-      {
-        bone: 'Cyclops',
-        location: "Warriors' Guild",
-        travel: 'Upper floor of the guild',
-        notes: '130 combined Att+Str; food for tokens',
-      },
-      {
-        bone: 'Aviansie',
-        location: "God Wars Dungeon (Armadyl's Eyrie)",
-        travel: "Climb past Death Plateau to Dad, then north to the dungeon's hole",
-        notes:
-          'Troll Stronghold (partial); climbing boots; rope (first time); 60 Str or Agi; 70 Ranged, crossbow, mithril grapple',
-      },
-      {
-        bone: 'Ork',
-        location: "God Wars Dungeon (Bandos' Stronghold)",
-        travel: 'Same dungeon',
-        notes: '70 Strength, hammer',
-      },
+      bank(
+        "Warriors' Guild (ground floor)",
+        'Games necklace to Burthorpe, walk into the guild',
+        ['Slayer ring (3)', 'Climbing boots', 'Rope', 'Crossbow + mithril grapple', 'Hammer'],
+        ['Swap gear for the God Wars Dungeon'],
+      ),
+      bone('Cyclops', "Warriors' Guild", 'Upper floor of the guild', [
+        '130 combined Att+Str',
+        'Food for tokens',
+      ]),
+      bone(
+        'Aviansie',
+        "God Wars Dungeon (Armadyl's Eyrie)",
+        "Climb past Death Plateau to Dad, then north to the dungeon's hole",
+        [
+          'Troll Stronghold (partial)',
+          'Climbing boots',
+          'Rope (first time)',
+          '60 Str or Agi',
+          '70 Ranged, crossbow, mithril grapple',
+        ],
+      ),
+      bone('Ork', "God Wars Dungeon (Bandos' Stronghold)", 'Same dungeon', [
+        '70 Strength',
+        'Hammer',
+      ]),
     ],
   },
   {
     name: 'Kandarin',
     stops: [
-      {
-        bone: 'Gnome Child',
-        location: 'Grand Tree',
-        travel: 'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree',
-      },
-      { bone: 'Tortoise', location: 'Gnome Stronghold pen (NW of Grand Tree)', travel: 'Walk' },
-      {
-        bone: 'Colonel Radick',
-        location: 'Yanille west gate',
-        travel: 'Minigame teleport to Nightmare Zone (north-west of Yanille bank)',
-        notes: 'Answer "foe" to fight him',
-      },
-      {
-        bone: null,
-        location: 'Yanille bank',
-        travel: 'Next to Nightmare Zone',
-        notes:
-          "Drop GWD gear. Load: giant frog legs + raw cave eel; witchwood icon, light source, Mos le'harmless teleport scroll",
-      },
-      {
-        bone: 'Frogeel',
-        location: 'Tower of Life',
-        travel: 'Walk east from Yanille to the Tower of Life (south of East Ardougne)',
-        notes: 'Giant frog legs + raw cave eel (unnoted)',
-      },
+      bone(
+        'Gnome Child',
+        'Grand Tree',
+        'Slayer ring to Stronghold Slayer Cave, walk to the Grand Tree',
+      ),
+      bone('Tortoise', 'Gnome Stronghold pen (NW of Grand Tree)', 'Walk'),
+      bone(
+        'Colonel Radick',
+        'Yanille west gate',
+        'Minigame teleport to Nightmare Zone (north-west of Yanille bank)',
+        ['Answer “foe” to fight him'],
+      ),
+      bank(
+        'Yanille bank',
+        'Next to Nightmare Zone',
+        [
+          "Mos le'harmless teleport scroll",
+          'Giant frog legs',
+          'Raw cave eel (unnoted)',
+          'Witchwood icon',
+          'Light source',
+        ],
+        ['Drop the God Wars gear'],
+      ),
+      bone(
+        'Frogeel',
+        'Tower of Life',
+        'Walk east from Yanille to the Tower of Life (south of East Ardougne)',
+        ['Giant frog legs + raw cave eel (unnoted)'],
+      ),
     ],
   },
   {
     name: 'Morytania',
     stops: [
-      {
-        bone: 'Crawling Hand',
-        location: 'Slayer Tower',
-        travel: 'Slayer ring to Slayer Tower',
-        notes: '5 Slayer',
-      },
-      { bone: 'Infernal Mage', location: 'Slayer Tower', travel: 'Same tower', notes: '45 Slayer' },
-      {
-        bone: 'Sorebones',
-        location: 'Harmony Island church',
-        travel:
-          "Mos le'harmless teleport scroll (or Trouble Brewing minigame teleport if 20 min have passed), then Brother Tranquility north of the docks",
-      },
-      {
-        bone: 'Cave Horror',
-        location: "Mos Le'Harmless Cave",
-        travel: "Brother Tranquility back to Mos Le'Harmless",
-        notes: '58 Slayer; witchwood icon; light source',
-      },
-      {
-        bone: null,
-        location: "Mos Le'Harmless bank (in the port)",
-        travel: 'Walk to the port',
-        notes:
-          'Last bank until Kourend. Load desert + Fremennik gear: coins (Shantay pass, carpet, Jarvald), waterskins, leaf-bladed weapon or broad ammo, pet rock, glory',
-      },
+      bone('Crawling Hand', 'Slayer Tower', 'Slayer ring to Slayer Tower', ['5 Slayer']),
+      bone('Infernal Mage', 'Slayer Tower', 'Same tower', ['45 Slayer']),
+      bone(
+        'Sorebones',
+        'Harmony Island church',
+        "Mos le'harmless teleport scroll (or Trouble Brewing minigame teleport if 20 min have passed), then Brother Tranquility north of the docks",
+      ),
+      bone('Cave Horror', "Mos Le'Harmless Cave", "Brother Tranquility back to Mos Le'Harmless", [
+        '58 Slayer',
+        'Witchwood icon',
+        'Light source',
+      ]),
+      bank(
+        "Mos Le'Harmless bank (in the port)",
+        'Walk to the port',
+        [
+          'Leaf-bladed weapon, broad arrows/bolts, or Magic Dart runes',
+          'Pet rock',
+          'Waterskins',
+          'Coins (a few thousand)',
+        ],
+        ['Last bank until Kourend'],
+      ),
     ],
   },
   {
     name: 'Desert',
     stops: [
-      {
-        bone: 'Ugthanki',
-        location: 'South of Shantay Pass',
-        travel:
-          'Amulet of glory to Al Kharid, walk to Shantay Pass (bank chest there if you forgot anything)',
-        notes: 'Shantay pass',
-      },
-      { bone: 'Goat', location: 'North of Pollnivneach', travel: 'Magic carpet to Pollnivneach' },
-      { bone: 'Crocodile', location: 'River Elid, south of Pollnivneach', travel: 'Walk south' },
+      bone(
+        'Ugthanki',
+        'South of Shantay Pass',
+        'Amulet of glory to Al Kharid, walk to Shantay Pass (bank chest there if you forgot anything)',
+        ['Shantay pass'],
+      ),
+      bone('Goat', 'North of Pollnivneach', 'Magic carpet to Pollnivneach'),
+      bone('Crocodile', 'River Elid, south of Pollnivneach', 'Walk south'),
     ],
   },
   {
     name: 'Fremennik',
     stops: [
-      {
-        bone: 'Turoth',
-        location: 'Fremennik Slayer Dungeon',
-        travel: 'Slayer ring to Fremennik Slayer Dungeon',
-        notes: '55 Slayer; leaf-bladed weapon, broad arrows/bolts, or Magic Dart',
-      },
-      { bone: 'Fox', location: 'South-east of Rellekka', travel: 'Walk north' },
-      {
-        bone: 'Wallasalki',
-        location: 'Waterbirth Island Dungeon',
-        travel: 'Jarvald in Rellekka',
-        notes: 'Pet rock (or a second player) for the door',
-      },
+      bone('Turoth', 'Fremennik Slayer Dungeon', 'Slayer ring to Fremennik Slayer Dungeon', [
+        '55 Slayer',
+        'Leaf-bladed weapon, broad arrows/bolts, or Magic Dart',
+      ]),
+      bone('Fox', 'South-east of Rellekka', 'Walk north'),
+      bone('Wallasalki', 'Waterbirth Island Dungeon', 'Jarvald in Rellekka', [
+        'Pet rock (or a second player) for the door',
+      ]),
     ],
   },
   {
     name: 'Kourend',
     stops: [
-      {
-        bone: null,
-        location: "Land's End bank chest (Hugor's house)",
-        travel: "Amulet of glory to Draynor, walk to Port Sarim; Veos's ship to Land's End",
-        notes: 'Drop Fremennik gear; load for the last trip',
-      },
-      {
-        bone: 'Lizardman',
-        location: 'Lizardman Canyon',
-        travel: 'Walk',
-        notes: "Lizardmen drop Xeric's talisman",
-      },
-      { bone: 'Lynx', location: "South of Shayzien's Secluded Chapel", travel: 'Walk' },
-      { bone: 'Boar', location: 'West of Kourend Castle', travel: 'Walk' },
+      bank(
+        "Land's End bank chest (Hugor's house)",
+        "Amulet of glory to Draynor, walk to Port Sarim; Veos's ship to Land's End",
+        [],
+        ['Drop the Fremennik gear'],
+      ),
+      bone('Lizardman', 'Lizardman Canyon', 'Walk', ["Lizardmen drop Xeric's talisman"]),
+      bone('Lynx', "South of Shayzien's Secluded Chapel", 'Walk'),
+      bone('Boar', 'West of Kourend Castle', 'Walk'),
     ],
   },
 ];
 
 export interface ShoppingItem {
   item: string;
-  qty: string;
+  /** How many to bring, shown as "30x Item". Left out when a count doesn't fit. */
+  qty?: string;
   neededFor: string;
   loadAt: string;
   source: string;
@@ -279,21 +286,21 @@ export interface ShoppingItem {
 export const SHOPPING: ShoppingItem[] = [
   {
     item: 'Pots and jugs of vinegar',
-    qty: '30 of each',
+    qty: '30',
     neededFor: 'Polishing every bone (boil on a fire or range)',
     loadAt: 'Before starting',
     source: 'Vinegar: Fortunato, Draynor. Pots: general stores',
   },
   {
-    item: 'Amulet of glory',
-    qty: '1 (3+ charges)',
+    item: 'Amulet of glory (3)',
+    qty: '1',
     neededFor: 'Teleports: Edgeville, Al Kharid, Draynor',
     loadAt: 'Varrock East',
     source: 'Grand Exchange',
   },
   {
-    item: 'Slayer ring',
-    qty: '1 (3+ charges)',
+    item: 'Slayer ring (3)',
+    qty: '1',
     neededFor: 'Teleports: Stronghold Slayer Cave, Slayer Tower, Fremennik Slayer Dungeon',
     loadAt: "Warriors' Guild",
     source: 'Slayer Rewards shop (75 points) or craft (75 Crafting)',
@@ -370,7 +377,7 @@ export const SHOPPING: ShoppingItem[] = [
   },
   {
     item: 'Crossbow + mithril grapple',
-    qty: '1 each',
+    qty: '1',
     neededFor: "Aviansie (Armadyl's Eyrie)",
     loadAt: "Warriors' Guild",
     source: 'Grand Exchange',
@@ -390,8 +397,8 @@ export const SHOPPING: ShoppingItem[] = [
     source: 'Grand Exchange',
   },
   {
-    item: 'Raw cave eel',
-    qty: '1 (unnoted)',
+    item: 'Raw cave eel (unnoted)',
+    qty: '1',
     neededFor: 'Frogeel (Creature Creation)',
     loadAt: 'Yanille',
     source: 'Grand Exchange',
@@ -412,7 +419,6 @@ export const SHOPPING: ShoppingItem[] = [
   },
   {
     item: 'Leaf-bladed weapon, broad arrows/bolts, or Magic Dart runes',
-    qty: '1 set',
     neededFor: 'Turoth',
     loadAt: "Mos Le'Harmless",
     source: 'Slayer master or Grand Exchange',
@@ -432,15 +438,13 @@ export const SHOPPING: ShoppingItem[] = [
     source: 'Grand Exchange or Shantay Pass shop',
   },
   {
-    item: 'Coins',
-    qty: 'A few thousand',
+    item: 'Coins (a few thousand)',
     neededFor: 'Shantay pass, magic carpet, Jarvald, Veos',
     loadAt: "Mos Le'Harmless",
     source: '—',
   },
   {
     item: 'Combat gear + food',
-    qty: '—',
     neededFor: 'Whole route',
     loadAt: 'Every bank stop',
     source: '—',
