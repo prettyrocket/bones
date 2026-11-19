@@ -283,7 +283,7 @@ export const ROUTE: Trip[] = [
     stops: [
       bank(
         "Land's End bank chest (Hugor's house)",
-        "Amulet of glory to Draynor, walk to Port Sarim; Veos's ship to Land's End",
+        "Rada's blessing to Kourend Woodland, walk to Land's End (3 a day from the easy Kourend & Kebos diary, unlimited from hard), or Amulet of glory to Draynor, walk to Port Sarim; Veos's ship to Land's End",
         [],
         ['Drop the Fremennik gear'],
       ),
