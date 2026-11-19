@@ -282,12 +282,14 @@ export const ROUTE: Trip[] = [
     name: 'Kourend',
     stops: [
       bank(
-        "Land's End bank chest (Hugor's house)",
-        "Amulet of glory to Draynor, walk to Port Sarim; Veos's ship to Land's End",
+        'Bank next to fairy ring DJR',
+        'Fairy ring DJR (Chasm of Fire, north-west Shayzien)',
         [],
-        ['Drop the Fremennik gear'],
+        ['Drop the Fremennik gear', 'Dramen or Lunar staff'],
       ),
-      bone('Lizardman', 'Lizardman Canyon', 'Walk', ["Lizardmen drop Xeric's talisman"]),
+      bone('Lizardman', 'Lizardman Canyon', 'Walk from the fairy ring', [
+        "Lizardmen drop Xeric's talisman",
+      ]),
       bone('Lynx', "South of Shayzien's Secluded Chapel", 'Walk'),
       bone('Boar', 'West of Kourend Castle', 'Walk'),
     ],
@@ -459,7 +461,7 @@ export const SHOPPING: ShoppingItem[] = [
   },
   {
     item: 'Coins (a few thousand)',
-    neededFor: 'Shantay pass, magic carpet, Jarvald, Veos',
+    neededFor: 'Shantay pass, magic carpet, Jarvald',
     loadAt: "Mos Le'Harmless",
     source: '—',
   },
