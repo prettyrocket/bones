@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,13 +13,15 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
 
-import { BONES, SHOPPING } from '@/data/bones';
+import { BONES, SHOPPING, wikiUrl } from '@/data/bones';
 import { useBones, useShopping } from '@/hooks/useProgress';
 
 interface CheckItem {
   id: string;
   primary: string;
   secondary?: string;
+  /** A page to open from an icon at the row's end, apart from the row's checkbox. */
+  href?: string;
 }
 
 function CheckList({
@@ -58,7 +62,26 @@ function CheckList({
         }
       >
         {items.map((item) => (
-          <ListItem key={item.id} disablePadding sx={wrap ? { width: { md: 200 } } : undefined}>
+          <ListItem
+            key={item.id}
+            disablePadding
+            sx={wrap ? { width: { md: 200 } } : undefined}
+            secondaryAction={
+              item.href && (
+                <IconButton
+                  edge="end"
+                  size="small"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${item.primary} on the OSRS Wiki`}
+                  title={`${item.primary} on the OSRS Wiki`}
+                >
+                  <OpenInNewIcon sx={{ fontSize: 16 }} />
+                </IconButton>
+              )
+            }
+          >
             {/* Tighter rows: small checkbox with little padding, no extra row gap. */}
             <ListItemButton dense onClick={() => checked.toggle(item.id)} sx={{ py: 0, px: 1.5 }}>
               <ListItemIcon sx={{ minWidth: 32 }}>
@@ -90,6 +113,7 @@ const shoppingItems: CheckItem[] = SHOPPING.map((entry) => ({
 const boneItems: CheckItem[] = BONES.map((bone) => ({
   id: bone.name,
   primary: bone.name,
+  href: wikiUrl(bone.name),
 }));
 
 /** Side by side, a list's box takes the rest of its column and scrolls if needed. */

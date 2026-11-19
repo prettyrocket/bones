@@ -6,12 +6,19 @@ export interface Bone {
   location: string;
   slayer?: number;
   quest?: string;
+  /** The OSRS Wiki page, when the bone's name alone lands somewhere else (like a disambiguation page). */
+  wiki?: string;
 }
 
 export const BONES: Bone[] = [
   { name: 'Angry Giant Rat', location: "Tolna's rift", quest: "A Soul's Bane" },
   { name: 'Ankou', location: 'Stronghold of Security' },
-  { name: 'Armoured Zombie', location: "Zemouregal's base", quest: 'Defender of Varrock (start)' },
+  {
+    name: 'Armoured Zombie',
+    location: "Zemouregal's base",
+    quest: 'Defender of Varrock (start)',
+    wiki: "Armoured zombie (Zemouregal's Base)",
+  },
   { name: 'Aviansie', location: 'God Wars Dungeon', quest: 'Troll Stronghold (partial)' },
   { name: 'Blue Dragon', location: 'Taverley Dungeon' },
   { name: 'Boar', location: 'West of Kourend Castle' },
@@ -40,6 +47,12 @@ export const BONES: Bone[] = [
   { name: 'Ugthanki', location: 'Kharidian Desert' },
   { name: 'Wallasalki', location: 'Waterbirth Island Dungeon' },
 ];
+
+/** The monster's OSRS Wiki page. Every bone's name works as a page title (some via redirects). */
+export function wikiUrl(bone: string): string {
+  const page = BONES.find((entry) => entry.name === bone)?.wiki ?? bone;
+  return `https://oldschool.runescape.wiki/w/${encodeURIComponent(page.replace(/ /g, '_'))}`;
+}
 
 export interface Stop {
   /** A bone's name, or null for a bank stop. */
@@ -209,7 +222,12 @@ export const ROUTE: Trip[] = [
   {
     name: 'Morytania',
     stops: [
-      bone('Crawling Hand', 'Slayer Tower', 'Slayer ring to Slayer Tower', ['5 Slayer']),
+      bone(
+        'Crawling Hand',
+        'Slayer Tower',
+        'Fairy ring CKS, walk north-west past Canifis to the tower (or Slayer ring to Slayer Tower)',
+        ['5 Slayer', 'Dramen or Lunar staff'],
+      ),
       bone('Infernal Mage', 'Slayer Tower', 'Same tower', ['45 Slayer']),
       bone(
         'Sorebones',
