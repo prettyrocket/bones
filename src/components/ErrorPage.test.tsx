@@ -19,6 +19,6 @@ describe('ErrorPage', () => {
     expect(screen.getByText('Kaboom')).toBeInTheDocument();
     // The app bar survives, so the user can navigate away.
     expect(screen.getByRole('banner')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Route' })).toBeInTheDocument();
   });
 });

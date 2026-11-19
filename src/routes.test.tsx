@@ -9,9 +9,11 @@ describe('routes', () => {
     expect(screen.getByRole('banner')).toHaveTextContent(import.meta.env.VITE_APP_TITLE);
   });
 
-  it('renders the home page at /', () => {
+  it('renders the bone route at /', () => {
     renderRoute('/');
-    expect(screen.getByRole('heading', { level: 1, name: 'Welcome' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Just a few more bones!' }),
+    ).toBeInTheDocument();
   });
 
   it('navigates via the app bar links', async () => {

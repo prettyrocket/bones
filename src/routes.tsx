@@ -3,12 +3,16 @@ import { type RouteObject, createBrowserRouter } from 'react-router';
 import { ErrorPage, RootErrorPage } from '@/components/ErrorPage';
 import { RootLayout } from '@/layouts/RootLayout';
 import { AboutPage } from '@/pages/AboutPage';
-import { HomePage } from '@/pages/HomePage';
+import { BonesPage } from '@/pages/BonesPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { RoutePage } from '@/pages/RoutePage';
+import { ShoppingPage } from '@/pages/ShoppingPage';
 
 /** Nav links shown in the app bar, in order. */
 export const navItems = [
-  { to: '/', label: 'Home' },
+  { to: '/', label: 'Route' },
+  { to: '/bones', label: 'Bones' },
+  { to: '/shopping', label: 'Shopping' },
   { to: '/about', label: 'About' },
 ];
 
@@ -23,7 +27,9 @@ export const routes: RouteObject[] = [
         // so the app bar and navigation keep working.
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <HomePage /> },
+          { index: true, element: <RoutePage /> },
+          { path: 'bones', element: <BonesPage /> },
+          { path: 'shopping', element: <ShoppingPage /> },
           { path: 'about', element: <AboutPage /> },
           { path: '*', element: <NotFoundPage /> },
         ],

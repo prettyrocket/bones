@@ -15,7 +15,11 @@ export function RootLayout() {
     <>
       <AppBar position="sticky" enableColorOnDark>
         <Toolbar>
-          <Typography variant="h6" component="span" sx={{ mr: 3 }}>
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ mr: 3, display: { xs: 'none', sm: 'block' } }}
+          >
             {import.meta.env.VITE_APP_TITLE}
           </Typography>
           <Stack component="nav" direction="row" spacing={1} sx={{ flexGrow: 1 }}>

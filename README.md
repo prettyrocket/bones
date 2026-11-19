@@ -1,5 +1,7 @@
 # Rag and Bone Man 3 Helper
 
+A route for collecting all 30 bones on the Odd Old Man's wish list in the OSRS quest Rag and Bone Man III, for players who already meet its requirements: the route in 10 trips (Route, the home page), the bones A to Z (Bones), and what to bring (Shopping). Ticks are saved in the browser's localStorage. The bone list, route and shopping list come from the "Rag and Bone Man III – Bone List" Sheet and live in `src/data/bones.ts`. The page cheerfully assumes all 30 bones are needed; keep it that way.
+
 Scaffolded with [create-prettyrocket-app](https://www.npmjs.com/package/create-prettyrocket-app):
 Vite + React + TypeScript + MUI, deployed to GitHub Pages.
 
@@ -24,22 +26,21 @@ src/
 ├─ main.tsx              # providers: React Query → MUI theme → router
 ├─ routes.tsx            # route table + navItems for the app bar
 ├─ theme.ts              # MUI theme; change ACCENT first
-├─ api.ts                # fetchJson + example query (useLinks)
+├─ api.ts                # fetchJson (unused for now)
 ├─ queryClient.ts        # TanStack Query defaults
 ├─ layouts/RootLayout.tsx
-├─ pages/                # one component per route
+├─ data/                 # bones, route, shopping list
+├─ pages/                # Route, Bones, Shopping, About
 ├─ components/           # shared components (ErrorPage, ColorModeToggle)
-├─ hooks/                # useLocalStorage
+├─ hooks/                # useLocalStorage, useProgress (saved checklists)
 └─ test/                 # setup + renderWithProviders / renderRoute helpers
-public/                  # served as-is (favicon, links.json)
+public/                  # served as-is (favicon)
 ```
 
 - **App title:** `VITE_APP_TITLE` in `.env` (browser tab and app bar).
 - **Add a page:** create it in `src/pages/`, add a route in `routes.tsx`, and
   add it to `navItems` if it belongs in the app bar.
 - **Imports:** use `@/` for anything under `src/`.
-- **Example content:** the Home page's click counter and docs list show the
-  patterns below; delete them (and `public/links.json`) when you start.
 
 ## Theme and dark mode
 
