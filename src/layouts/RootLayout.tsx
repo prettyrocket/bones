@@ -44,9 +44,6 @@ export function RootLayout() {
             color: colors.bone,
             borderBottom: `1px solid ${colors.line}`,
             backdropFilter: 'blur(8px)',
-            // Above the page, so the bonesack's overhead text can spill out below it.
-            position: 'relative',
-            zIndex: 3,
           }}
         >
           <Toolbar sx={{ flexWrap: 'wrap', gap: 1 }}>
@@ -71,9 +68,10 @@ export function RootLayout() {
                 </Button>
               ))}
             </Stack>
-            <SillyBonesack />
           </Toolbar>
         </AppBar>
+        {/* Outside the app bar: its backdrop blur would pin a fixed child to the bar. */}
+        <SillyBonesack />
         <Container component="main" maxWidth="lg" sx={{ py: 4 }}>
           <Outlet />
         </Container>
