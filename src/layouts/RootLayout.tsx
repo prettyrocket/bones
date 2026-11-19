@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { NavLink, Outlet } from 'react-router';
 
+import { SillyBonesack } from '@/components/SillyBonesack';
 import { navItems } from '@/routes';
 import { colors } from '@/theme';
 
@@ -43,6 +44,9 @@ export function RootLayout() {
             color: colors.bone,
             borderBottom: `1px solid ${colors.line}`,
             backdropFilter: 'blur(8px)',
+            // Above the page, so the bonesack's overhead text can spill out below it.
+            position: 'relative',
+            zIndex: 3,
           }}
         >
           <Toolbar sx={{ flexWrap: 'wrap', gap: 1 }}>
@@ -67,6 +71,7 @@ export function RootLayout() {
                 </Button>
               ))}
             </Stack>
+            <SillyBonesack />
           </Toolbar>
         </AppBar>
         <Container component="main" maxWidth="lg" sx={{ py: 4 }}>
