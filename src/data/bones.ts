@@ -106,7 +106,7 @@ export const ROUTE: Trip[] = [
         ['Drop the grubby key and pendant', 'Top up food'],
       ),
       bone('Minotaur', 'Stronghold level 1', 'Walk to Barbarian Village'),
-      bone('Catablepon', 'Stronghold level 2', 'Continue down'),
+      bone('Catablepon', 'Stronghold level 3 (Pit of Pestilence)', 'Continue down past level 2'),
       bone('Ankou', 'Stronghold level 4', 'Continue down'),
     ],
   },
